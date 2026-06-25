@@ -1,4 +1,4 @@
-import type { GameSnapshot } from "@xadrez/shared";
+import type { GameMode, GameSnapshot } from "@xadrez/shared";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +10,14 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { useLocale } from "@/i18n/locale-provider";
+import type { MessageKey } from "@/i18n/messages";
+
+const modeLabels: Record<GameMode, MessageKey> = {
+  computer: "mode.computer.title",
+  room: "mode.room.title",
+  local: "mode.local.title",
+};
 
 export function HistoryPanel({
   current,
@@ -20,20 +28,23 @@ export function HistoryPanel({
   history: GameSnapshot[];
   onReplay(game: GameSnapshot): void;
 }) {
+  const { t, formatDate } = useLocale();
   const lastMoves = current.moves.slice(-12).reverse();
+  const turnLabel = current.turn === "w" ? t("color.white") : t("color.black");
+
   return (
     <Card className="parchment-panel gold-frame h-full border-primary/30">
       <CardHeader>
-        <CardTitle>Histórico</CardTitle>
-        <CardDescription>Partidas, lances e posição atual.</CardDescription>
+        <CardTitle>{t("history.title")}</CardTitle>
+        <CardDescription>{t("history.description")}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <div className="flex flex-col gap-2 rounded-lg border border-border/70 bg-background/25 p-3">
           <div className="flex items-center justify-between gap-2">
-            <span className="text-sm font-semibold">Posição</span>
-            <Badge variant="outline">
-              {current.turn === "w" ? "Brancas" : "Pretas"}
-            </Badge>
+            <span className="text-sm font-semibold">
+              {t("history.position")}
+            </span>
+            <Badge variant="outline">{turnLabel}</Badge>
           </div>
           <code className="break-all rounded-md bg-background/45 p-2 text-xs text-muted-foreground">
             {current.fen}
@@ -41,7 +52,7 @@ export function HistoryPanel({
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="text-sm font-semibold">Lances</span>
+          <span className="text-sm font-semibold">{t("history.moves")}</span>
           <ScrollArea className="h-44 rounded-lg border border-border/70 bg-background/25 p-3">
             <div data-testid="move-log" className="flex flex-col gap-2 pr-3">
               {lastMoves.length ? (
@@ -53,13 +64,18 @@ export function HistoryPanel({
                   >
                     <span>{move.san}</span>
                     <Badge variant={move.captured ? "default" : "outline"}>
-                      {move.captured ? "Captura!" : move.from + "–" + move.to}
+                      {move.captured
+                        ? t("history.capture")
+                        : t("history.movePath", {
+                            from: move.from,
+                            to: move.to,
+                          })}
                     </Badge>
                   </div>
                 ))
               ) : (
                 <span className="text-sm text-muted-foreground">
-                  Nenhum lance ainda.
+                  {t("history.noMoves")}
                 </span>
               )}
             </div>
@@ -69,7 +85,9 @@ export function HistoryPanel({
         <Separator />
 
         <div className="flex flex-col gap-2">
-          <span className="text-sm font-semibold">Partidas salvas</span>
+          <span className="text-sm font-semibold">
+            {t("history.savedGames")}
+          </span>
           <ScrollArea className="h-40 rounded-lg border border-border/70 bg-background/25 p-3">
             <div className="flex flex-col gap-2 pr-3">
               {history.length ? (
@@ -81,23 +99,19 @@ export function HistoryPanel({
                     onClick={() => onReplay(game)}
                   >
                     <span className="flex flex-col items-start gap-1">
-                      <span>
-                        {game.mode === "computer"
-                          ? "Jogador vs Computador"
-                          : game.mode === "room"
-                            ? "Sala por link"
-                            : "Jogador vs Jogador"}
-                      </span>
+                      <span>{t(modeLabels[game.mode])}</span>
                       <span className="text-xs text-muted-foreground">
-                        {game.moves.length} lances ·{" "}
-                        {new Date(game.createdAt).toLocaleDateString("pt-BR")}
+                        {t("history.moveCount", {
+                          count: game.moves.length,
+                          date: formatDate(game.createdAt),
+                        })}
                       </span>
                     </span>
                   </Button>
                 ))
               ) : (
                 <span className="text-sm text-muted-foreground">
-                  Entre para manter seu histórico entre dispositivos.
+                  {t("history.signInHint")}
                 </span>
               )}
             </div>

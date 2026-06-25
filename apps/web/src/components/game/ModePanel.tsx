@@ -11,8 +11,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLocale } from "@/i18n/locale-provider";
+import type { MessageKey } from "@/i18n/messages";
 
 type PlayerColor = "white" | "black";
+
+const clockLabelKeys: Record<ClockPreset["id"], MessageKey> = {
+  "blitz-3-2": "clock.blitz-3-2",
+  "rapid-10-0": "clock.rapid-10-0",
+  "classic-30-0": "clock.classic-30-0",
+};
 
 export function ModePanel({
   mode,
@@ -35,21 +43,21 @@ export function ModePanel({
   onNewGame(): void;
   onCreateRoom(): void;
 }) {
+  const { t } = useLocale();
+
   return (
     <Card className="parchment-panel gold-frame h-full border-primary/30">
       <CardHeader>
-        <CardTitle>Nova partida</CardTitle>
-        <CardDescription>
-          Escolha modo, tempo e entre no tabuleiro.
-        </CardDescription>
+        <CardTitle>{t("mode.title")}</CardTitle>
+        <CardDescription>{t("mode.description")}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <Tabs value={mode} onValueChange={(value) => onMode(value as GameMode)}>
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="local">Local</TabsTrigger>
-            <TabsTrigger value="room">Sala</TabsTrigger>
+            <TabsTrigger value="local">{t("mode.local.tab")}</TabsTrigger>
+            <TabsTrigger value="room">{t("mode.room.tab")}</TabsTrigger>
             <TabsTrigger data-testid="mode-computer" value="computer">
-              IA
+              {t("mode.computer.tab")}
             </TabsTrigger>
           </TabsList>
           <TabsContent
@@ -58,8 +66,8 @@ export function ModePanel({
           >
             <ModeCard
               icon={<Users aria-hidden="true" />}
-              title="Jogador vs Jogador"
-              text="Duas pessoas alternam no mesmo tabuleiro."
+              title={t("mode.local.title")}
+              text={t("mode.local.text")}
             />
           </TabsContent>
           <TabsContent
@@ -68,8 +76,8 @@ export function ModePanel({
           >
             <ModeCard
               icon={<Swords aria-hidden="true" />}
-              title="Sala por link"
-              text="Crie uma sala e compartilhe o código."
+              title={t("mode.room.title")}
+              text={t("mode.room.text")}
             />
           </TabsContent>
           <TabsContent
@@ -78,8 +86,8 @@ export function ModePanel({
           >
             <ModeCard
               icon={<Bot aria-hidden="true" />}
-              title="Jogador vs Computador"
-              text="Enfrente o motor local em dificuldade inicial."
+              title={t("mode.computer.title")}
+              text={t("mode.computer.text")}
             />
           </TabsContent>
         </Tabs>
@@ -87,7 +95,7 @@ export function ModePanel({
         {mode === "computer" ? (
           <div className="flex flex-col gap-2 rounded-lg border border-border/70 bg-background/25 p-3">
             <span className="text-sm font-semibold text-muted-foreground">
-              Você joga
+              {t("mode.playerColor")}
             </span>
             <div className="grid grid-cols-2 gap-2">
               <Button
@@ -95,14 +103,14 @@ export function ModePanel({
                 variant={playerColor === "white" ? "default" : "outline"}
                 onClick={() => onPlayerColor("white")}
               >
-                Brancas
+                {t("color.white")}
               </Button>
               <Button
                 data-testid="player-color-black"
                 variant={playerColor === "black" ? "default" : "outline"}
                 onClick={() => onPlayerColor("black")}
               >
-                Pretas
+                {t("color.black")}
               </Button>
             </div>
           </div>
@@ -110,7 +118,7 @@ export function ModePanel({
 
         <div className="flex flex-col gap-2">
           <span className="text-sm font-semibold text-muted-foreground">
-            Tempo
+            {t("mode.time")}
           </span>
           <div className="grid grid-cols-1 gap-2">
             {clockPresets.map((preset) => (
@@ -119,7 +127,7 @@ export function ModePanel({
                 variant={clock.id === preset.id ? "default" : "outline"}
                 onClick={() => onClock(preset)}
               >
-                {preset.label}
+                {t(clockLabelKeys[preset.id] ?? "clock.blitz-3-2")}
               </Button>
             ))}
           </div>
@@ -127,14 +135,18 @@ export function ModePanel({
 
         <div className="flex flex-col gap-2">
           <Button data-testid="new-game" size="lg" onClick={onNewGame}>
-            Nova partida
+            {t("mode.title")}
           </Button>
           {mode === "room" ? (
             <Button variant="secondary" onClick={onCreateRoom}>
-              Criar sala
+              {t("mode.createRoom")}
             </Button>
           ) : null}
-          {roomCode ? <Badge variant="secondary">Sala {roomCode}</Badge> : null}
+          {roomCode ? (
+            <Badge variant="secondary">
+              {t("mode.roomCode", { code: roomCode })}
+            </Badge>
+          ) : null}
         </div>
       </CardContent>
     </Card>

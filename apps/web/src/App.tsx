@@ -9,6 +9,7 @@ import { ClockPanel } from "@/components/game/ClockPanel";
 import { HistoryPanel } from "@/components/game/HistoryPanel";
 import { MedievalBoard } from "@/components/game/MedievalBoard";
 import { ModePanel } from "@/components/game/ModePanel";
+import { LanguageGate } from "@/components/i18n/LanguageGate";
 import { createLocalGame, legalTargets, playLocalMove } from "@/lib/game-state";
 import {
   createRemoteGame,
@@ -22,10 +23,13 @@ import {
 import { loadLocalHistory, saveLocalGame } from "@/lib/local-history";
 import { createRoomClient, type RoomClient } from "@/lib/room-client";
 import { useStockfish } from "@/lib/use-stockfish";
+import { locales } from "@/i18n/locales";
+import { useLocale } from "@/i18n/locale-provider";
 
 type PlayerColor = "white" | "black";
 
 export default function App() {
+  const { locale, hasLocale, setLocale, t } = useLocale();
   const [mode, setMode] = useState<GameMode>("computer");
   const [clock, setClock] = useState<ClockPreset>(clockPresets[0]!);
   const [playerColor, setPlayerColor] = useState<PlayerColor>("white");
@@ -109,6 +113,10 @@ export default function App() {
     [selectedSquare, snapshot.fen],
   );
   const lastMove = snapshot.moves.at(-1);
+  const turnColor =
+    snapshot.turn === "w" ? t("color.white.lower") : t("color.black.lower");
+  const playerColorLabel =
+    playerColor === "white" ? t("color.white.lower") : t("color.black.lower");
 
   const startNewGame = useCallback(async () => {
     setSelectedSquare(undefined);
@@ -197,6 +205,8 @@ export default function App() {
     ],
   );
 
+  if (!hasLocale) return <LanguageGate />;
+
   return (
     <main className="min-h-screen p-4 lg:p-6">
       <div className="mx-auto flex max-w-[1680px] flex-col gap-4">
@@ -207,31 +217,49 @@ export default function App() {
             </div>
             <div className="flex flex-col gap-1">
               <h1 className="font-display text-3xl font-bold tracking-wide md:text-4xl">
-                Xadrez Medieval
+                {t("app.title")}
               </h1>
               <p
                 data-testid="turn-status"
                 className="text-sm text-muted-foreground"
               >
-                Turno das {snapshot.turn === "w" ? "brancas" : "pretas"} ·{" "}
-                {isThinking ? "Oponente pensando" : "Pronto para o lance"}
+                {t("status.turn", { color: turnColor })} ·{" "}
+                {isThinking ? t("status.thinking") : t("status.ready")}
               </p>
               {mode === "computer" ? (
                 <p className="text-sm font-medium text-primary">
-                  Você joga com as{" "}
-                  {playerColor === "white" ? "brancas" : "pretas"}
+                  {t("color.youPlay", { color: playerColorLabel })}
                 </p>
               ) : null}
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <Badge variant="secondary" className="gap-2">
-              <Shield aria-hidden="true" /> Posição ativa
+              <Shield aria-hidden="true" /> {t("header.activePosition")}
             </Badge>
             <Button variant="outline" onClick={startNewGame}>
               <RotateCcw data-icon="inline-start" aria-hidden="true" />
-              Nova partida
+              {t("header.newGame")}
             </Button>
+            <label className="sr-only" htmlFor="language-switcher">
+              {t("language.switcherLabel")}
+            </label>
+            <select
+              id="language-switcher"
+              data-testid="language-switcher"
+              aria-label={t("language.switcherLabel")}
+              value={locale}
+              onChange={(event) =>
+                setLocale(event.target.value as typeof locale)
+              }
+              className="h-10 rounded-md border border-input bg-background/70 px-3 py-2 text-sm font-medium text-foreground shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {locales.map((option) => (
+                <option key={option} value={option}>
+                  {t(`language.${option}` as const)}
+                </option>
+              ))}
+            </select>
             {user ? (
               <div className="flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3 py-2">
                 <Avatar className="size-8">
@@ -243,14 +271,14 @@ export default function App() {
                   </AvatarFallback>
                 </Avatar>
                 <span className="text-sm font-medium">
-                  {user.name ?? "Jogador"}
+                  {user.name ?? t("header.playerNameFallback")}
                 </span>
               </div>
             ) : (
               <Button asChild>
                 <a href={loginUrl()}>
                   <LogIn data-icon="inline-start" aria-hidden="true" />
-                  Entrar
+                  {t("auth.signIn")}
                 </a>
               </Button>
             )}
@@ -295,8 +323,7 @@ export default function App() {
         </section>
 
         <footer className="flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-border/60 bg-background/35 px-4 py-3 text-sm text-muted-foreground">
-          <Swords aria-hidden="true" /> Movimentos animados · Capturas com duelo
-          · Histórico PGN · Salas por link
+          <Swords aria-hidden="true" /> {t("app.footer")}
         </footer>
       </div>
     </main>

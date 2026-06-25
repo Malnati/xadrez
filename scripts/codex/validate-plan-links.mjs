@@ -111,12 +111,16 @@ function validateMarco(file, options = {}) {
 function validateIndex(file, options = {}) {
   const markdown = read(file);
   const errors = [];
-  for (const required of [
-    "issues/issue-001-governanca-plan-project14.md",
-    "issues/issue-002-automacao-codex-governanca.md",
-    "marcos/marco-01-governanca-plan-project14.md",
-    "marcos/marco-02-automacao-codex-governanca.md",
-  ]) {
+  const planDir = path.dirname(file);
+  const requiredFiles = [
+    ...listMarkdownFiles(path.join(planDir, "issues")).map(
+      (candidate) => `issues/${path.basename(candidate)}`,
+    ),
+    ...listMarkdownFiles(path.join(planDir, "marcos")).map(
+      (candidate) => `marcos/${path.basename(candidate)}`,
+    ),
+  ];
+  for (const required of requiredFiles) {
     if (!markdown.includes(required))
       errors.push(`missing index reference: ${required}`);
   }

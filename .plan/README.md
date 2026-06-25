@@ -6,7 +6,7 @@ Este diretório é a fonte detalhada de planejamento do projeto Xadrez Medieval.
 
 - ProjectV2: [Malnati / xadrez — Project 14](https://github.com/users/Malnati/projects/14/)
 - Repositório: [Malnati/xadrez](https://github.com/Malnati/xadrez)
-- Branch de governança ativa: `codex/xadrez-medieval-mvp`
+- Branch de governança ativa: `codex/i18n-multilingue`
 
 ## Estrutura
 
@@ -18,10 +18,11 @@ Este diretório é a fonte detalhada de planejamento do projeto Xadrez Medieval.
 
 ## Marcos atuais
 
-| Marco                           | Arquivo                                                                                          | Status           | Issues                                                                                             |
-| ------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------- | -------------------------------------------------------------------------------------------------- |
-| Governança `.plan` + Project 14 | [`marcos/marco-01-governanca-plan-project14.md`](marcos/marco-01-governanca-plan-project14.md)   | Em implementação | [`issues/issue-001-governanca-plan-project14.md`](issues/issue-001-governanca-plan-project14.md)   |
-| Automação Codex de governança   | [`marcos/marco-02-automacao-codex-governanca.md`](marcos/marco-02-automacao-codex-governanca.md) | Em implementação | [`issues/issue-002-automacao-codex-governanca.md`](issues/issue-002-automacao-codex-governanca.md) |
+| Marco                           | Arquivo                                                                                          | Status              | Issues                                                                                             |
+| ------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------- | -------------------------------------------------------------------------------------------------- |
+| Governança `.plan` + Project 14 | [`marcos/marco-01-governanca-plan-project14.md`](marcos/marco-01-governanca-plan-project14.md)   | Concluído via PR #2 | [`issues/issue-001-governanca-plan-project14.md`](issues/issue-001-governanca-plan-project14.md)   |
+| Automação Codex de governança   | [`marcos/marco-02-automacao-codex-governanca.md`](marcos/marco-02-automacao-codex-governanca.md) | Concluído via PR #2 | [`issues/issue-002-automacao-codex-governanca.md`](issues/issue-002-automacao-codex-governanca.md) |
+| i18n e E2E multilíngue          | [`marcos/marco-03-i18n-e2e-multilingue.md`](marcos/marco-03-i18n-e2e-multilingue.md)             | Em implementação    | [`issues/issue-003-i18n-e2e-multilingue.md`](issues/issue-003-i18n-e2e-multilingue.md)             |
 
 ## Issues planejadas
 
@@ -29,6 +30,7 @@ Este diretório é a fonte detalhada de planejamento do projeto Xadrez Medieval.
 | ------------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------ | ----------------------------------------------------------- | ------------------------------------------------- |
 | Governança `.plan` + Project 14 | [`issues/issue-001-governanca-plan-project14.md`](issues/issue-001-governanca-plan-project14.md)   | [`marcos/marco-01-governanca-plan-project14.md`](marcos/marco-01-governanca-plan-project14.md)   | [Issue #1](https://github.com/Malnati/xadrez/issues/1) | [Project 14](https://github.com/users/Malnati/projects/14/) | [PR #2](https://github.com/Malnati/xadrez/pull/2) |
 | Automação Codex de governança   | [`issues/issue-002-automacao-codex-governanca.md`](issues/issue-002-automacao-codex-governanca.md) | [`marcos/marco-02-automacao-codex-governanca.md`](marcos/marco-02-automacao-codex-governanca.md) | [Issue #3](https://github.com/Malnati/xadrez/issues/3) | [Project 14](https://github.com/users/Malnati/projects/14/) | [PR #2](https://github.com/Malnati/xadrez/pull/2) |
+| i18n e E2E multilíngue          | [`issues/issue-003-i18n-e2e-multilingue.md`](issues/issue-003-i18n-e2e-multilingue.md)             | [`marcos/marco-03-i18n-e2e-multilingue.md`](marcos/marco-03-i18n-e2e-multilingue.md)             | [Issue #4](https://github.com/Malnati/xadrez/issues/4) | [Project 14](https://github.com/users/Malnati/projects/14/) | [PR #7](https://github.com/Malnati/xadrez/pull/7) |
 
 ## Rota obrigatória para GitHub ProjectV2
 
