@@ -115,27 +115,118 @@ function updatePrViaRest(number, title, markdownBody) {
 
 function addProjectItem(url) {
   try {
-    addProjectItem(url);
+    run(PROJECT_WRAPPER, [
+      "project",
+      "item-add",
+      PROJECT_NUMBER,
+      "--owner",
+      PROJECT_OWNER,
+      "--url",
+      url,
+    ]);
   } catch (error) {
     const message = String(error?.message ?? error);
     if (!/already|exists|duplicate/i.test(message)) throw error;
   }
 }
 
-function body() {
-  const issues = issueUrls();
+function optionValue(flag) {
+  const index = process.argv.indexOf(flag);
+  if (index === -1) return undefined;
+  return process.argv[index + 1];
+}
+
+function selectedIssueNumbers() {
+  const value = optionValue("--issue");
+  if (!value) return undefined;
+  return new Set(
+    value
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean),
+  );
+}
+
+function issueTitleFromMarkdown(file) {
+  const markdown = fs.readFileSync(file, "utf8");
+  return (
+    markdown.match(/^#\s+Issue\s+\d+\s+[—-]\s+(.+)$/m)?.[1]?.trim() ??
+    markdown.match(/^#\s+(.+)$/m)?.[1]?.trim() ??
+    "Codex managed change"
+  );
+}
+
+function selectedIssueUrls() {
+  const selected = selectedIssueNumbers();
+  return issueUrls().filter((issue) => !selected || selected.has(issue.number));
+}
+
+function marcoRefsForIssues(issues) {
+  const refs = new Set();
+  for (const issue of issues) {
+    const markdown = fs.readFileSync(issue.file, "utf8");
+    for (const match of markdown.matchAll(
+      /\.\.\/marcos\/([a-z0-9_.-]+\.md)/gi,
+    )) {
+      refs.add(`.plan/marcos/${match[1]}`);
+    }
+  }
+  return [...refs].sort();
+}
+
+function prTitle(issues) {
+  const explicit = optionValue("--title");
+  if (explicit) return explicit;
+  if (issues.length === 1) {
+    const title = issueTitleFromMarkdown(issues[0].file).toLowerCase();
+    if (title.includes("i18n")) return "feat(web): add multilingual game flow";
+    if (title.includes("automação") || title.includes("governança"))
+      return "docs: add codex governance automation";
+  }
+  return "chore: update codex managed plan";
+}
+
+function visualEvidenceSection(branch) {
+  const asset = "docs/assets/issues/004/i18n-multilingue-evidence.png";
+  if (!fs.existsSync(asset)) return "";
+  const blob = `https://github.com/Malnati/xadrez/blob/${branch}/${asset}`;
+  const raw = `https://github.com/Malnati/xadrez/raw/${branch}/${asset}`;
+  return `
+## Evidência visual
+
+<p align="center">
+  <a href="${blob}" target="_blank" rel="noopener noreferrer">
+    <img src="${raw}" alt="Fluxo multilíngue do Xadrez Medieval após jogada contra o computador" width="50%">
+  </a>
+</p>
+
+<p align="center">
+  <a href="${blob}" target="_blank" rel="noopener noreferrer">Abrir imagem em nova aba/janela</a>
+</p>
+`;
+}
+
+function body(branch = currentBranch()) {
+  const issues = selectedIssueUrls();
+  if (!issues.length) {
+    throw new Error("No .plan issue matched --issue selection");
+  }
   const closing = issues.map((issue) => `Closes #${issue.number}`).join("\n");
   const issueList = issues
     .map((issue) => `- Issue #${issue.number}: ${issue.file}`)
     .join("\n");
-  return `## Documento detalhado\n\n${issueList}\n\n## Marco\n\n- .plan/marcos/marco-01-governanca-plan-project14.md\n- .plan/marcos/marco-02-automacao-codex-governanca.md\n\n## Project 14\n\n- https://github.com/users/Malnati/projects/14/\n- ProjectV2 sincronizado exclusivamente via /Users/mal/.codex/bin/mbra-projects-gh.\n\n## Validação esperada\n\n- git diff --check\n- node scripts/codex/validate-plan-links.mjs\n- node scripts/codex/validate-plan-links.mjs --self-test\n- pnpm test\n- pnpm typecheck\n- pnpm build\n\n${closing}\n`;
+  const marcoList = marcoRefsForIssues(issues)
+    .map((marco) => `- ${marco}`)
+    .join("\n");
+  return `## Documento detalhado\n\n${issueList}\n\n## Marco\n\n${marcoList || "- Marco não identificado no arquivo .plan da issue."}\n\n## Project 14\n\n- https://github.com/users/Malnati/projects/14/\n- ProjectV2 sincronizado exclusivamente via /Users/mal/.codex/bin/mbra-projects-gh.\n\n## Validação esperada\n\n- git diff --check\n- node scripts/codex/validate-plan-links.mjs\n- node scripts/codex/validate-plan-links.mjs --self-test\n- pnpm format\n- pnpm lint\n- pnpm test\n- pnpm typecheck\n- pnpm build\n- pnpm test:e2e\n${visualEvidenceSection(branch)}\n${closing}\n`;
 }
 
 function main() {
   const dryRun = process.argv.includes("--dry-run");
   const branch = currentBranch();
   const pr = existingPr();
-  const nextBody = body();
+  const nextBody = body(branch);
+  const nextTitle = prTitle(selectedIssueUrls());
   if (dryRun) {
     console.log(
       JSON.stringify(
@@ -166,7 +257,7 @@ function main() {
           "--repo",
           REPO,
           "--title",
-          "docs: add codex governance automation",
+          nextTitle,
           "--body-file",
           bodyFile,
         ],
@@ -179,11 +270,7 @@ function main() {
         !message.includes("projectCards")
       )
         throw error;
-      updatePrViaRest(
-        pr.number,
-        "docs: add codex governance automation",
-        nextBody,
-      );
+      updatePrViaRest(pr.number, nextTitle, nextBody);
     }
   } else {
     url = run(
@@ -199,22 +286,14 @@ function main() {
         branch,
         "--draft",
         "--title",
-        "docs: add codex governance automation",
+        nextTitle,
         "--body-file",
         bodyFile,
       ],
       { sanitized: true },
     );
   }
-  run(PROJECT_WRAPPER, [
-    "project",
-    "item-add",
-    PROJECT_NUMBER,
-    "--owner",
-    PROJECT_OWNER,
-    "--url",
-    url,
-  ]);
+  addProjectItem(url);
   fs.rmSync(bodyFile, { force: true });
   console.log(
     JSON.stringify(

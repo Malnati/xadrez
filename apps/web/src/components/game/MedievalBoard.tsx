@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import { Application, Container, Graphics, Text, TextStyle } from "pixi.js";
 import { cn } from "@/lib/utils";
+import { useLocale } from "@/i18n/locale-provider";
 import { piecesFromFen, toSquare } from "@/lib/game-state";
 
 const pieceSymbols: Record<string, string> = {
@@ -35,6 +36,7 @@ export function MedievalBoard({
   onSquareClick,
   className,
 }: Props) {
+  const { t } = useLocale();
   const hostRef = useRef<HTMLDivElement | null>(null);
   const appRef = useRef<Application | null>(null);
   const clickRef = useRef(onSquareClick);
@@ -112,17 +114,17 @@ export function MedievalBoard({
       <div
         ref={hostRef}
         className="relative z-10 size-full overflow-hidden rounded-[1.35rem]"
-        aria-label="Tabuleiro de xadrez medieval"
+        aria-label={t("board.label")}
       />
       <div
         className="absolute inset-3 z-20 grid grid-cols-8 grid-rows-8 overflow-hidden rounded-[1.35rem]"
-        aria-label="Casas do tabuleiro"
+        aria-label={t("board.squaresLabel")}
       >
         {boardSquares.map((square) => (
           <button
             key={square}
             type="button"
-            aria-label={`Casa ${square}`}
+            aria-label={t("board.squareLabel", { square })}
             data-square={square}
             data-testid={`board-square-${square}`}
             className="min-h-0 min-w-0 bg-transparent outline-none transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -132,7 +134,7 @@ export function MedievalBoard({
       </div>
       {lastMove?.captured ? (
         <div className="pointer-events-none absolute left-1/2 top-10 z-20 -translate-x-1/2 rounded-full border border-primary/50 bg-background/80 px-4 py-1 font-display text-sm text-primary shadow-glow">
-          Captura!
+          {t("board.capture")}
         </div>
       ) : null}
     </div>
