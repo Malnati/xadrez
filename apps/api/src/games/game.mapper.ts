@@ -1,5 +1,5 @@
-import type { Game, Move } from '@prisma/client';
-import type { ClockPreset, GameSnapshot, MoveRecord } from '@xadrez/shared';
+import type { Game, Move } from "@prisma/client";
+import type { ClockPreset, GameSnapshot, MoveRecord } from "@xadrez/shared";
 
 export type GameWithMoves = Game & { moves: Move[] };
 
@@ -10,7 +10,7 @@ export function toSnapshot(game: GameWithMoves): GameSnapshot {
       san: move.san,
       from: move.fromSquare,
       to: move.toSquare,
-      color: move.color as 'w' | 'b',
+      color: move.color as "w" | "b",
       piece: move.piece,
       captured: move.captured ?? undefined,
       promotion: move.promotion ?? undefined,
@@ -25,7 +25,7 @@ export function toSnapshot(game: GameWithMoves): GameSnapshot {
     mode: game.mode,
     fen: game.fen,
     pgn: game.pgn,
-    turn: game.fen.includes(' b ') ? 'b' : 'w',
+    turn: game.fen.includes(" b ") ? "b" : "w",
     status: game.status,
     result: game.result,
     moves,

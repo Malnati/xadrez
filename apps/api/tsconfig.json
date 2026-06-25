@@ -7,13 +7,8 @@
     "rootDir": "src",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "types": [
-      "node",
-      "vitest"
-    ],
+    "types": ["node", "vitest"],
     "baseUrl": "."
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

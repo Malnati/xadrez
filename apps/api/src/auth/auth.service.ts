@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { UsersService, type OAuthUser } from '../users/users.service';
+import { Injectable } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { UsersService, type OAuthUser } from "../users/users.service";
 
 @Injectable()
 export class AuthService {
@@ -13,7 +13,12 @@ export class AuthService {
     return this.users.upsertOAuthUser(profile);
   }
 
-  issueToken(user: { id: string; email: string; name: string | null; avatarUrl: string | null }) {
+  issueToken(user: {
+    id: string;
+    email: string;
+    name: string | null;
+    avatarUrl: string | null;
+  }) {
     const accessToken = this.jwt.sign({ sub: user.id, email: user.email });
     return {
       accessToken,
