@@ -1,0 +1,41 @@
+name: Codex governance
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+
+jobs:
+  validate-governance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate Codex plan links
+        run: node scripts/codex/validate-plan-links.mjs
+
+      - name: Validate workspace tests
+        run: pnpm test
+
+      - name: Validate workspace types
+        run: pnpm typecheck
+
+      - name: Validate workspace build
+        run: pnpm build

@@ -84,6 +84,7 @@ Resultado esperado:
 gh issue view <numero> --repo Malnati/xadrez --json url,title,state
 /Users/mal/.codex/bin/mbra-projects-gh project view 14 --owner Malnati --format json
 /Users/mal/.codex/bin/mbra-projects-gh project item-list 14 --owner Malnati --format json --limit 100
+python3 -B /Users/mal/.codex/hooks/github_projects_pat_gate.py --self-test
 ```
 
 Resultado esperado:
@@ -125,3 +126,4 @@ Resultado esperado:
 - `pnpm exec prettier --check .plan/README.md .plan/issues/issue-001-governanca-plan-project14.md .plan/marcos/marco-01-governanca-plan-project14.md` passou.
 - `pnpm test` passou em 2026-06-25: 4 arquivos de teste, 6 testes aprovados.
 - `pnpm format` global falhou por baseline preexistente fora de `.plan` com 53 arquivos já não formatados; código alheio não foi reformatado nesta issue documental.
+- Rota global ProjectV2 validada em 2026-06-25: `github_projects_pat_gate.py --self-test` passou com 8 testes; wrapper `/Users/mal/.codex/bin/mbra-projects-gh project view 14 --owner Malnati --format json` acessou Project 14 `xadrez`; simulação de `gh project view 14 --owner Malnati` foi bloqueada pelo hook com orientação correta.

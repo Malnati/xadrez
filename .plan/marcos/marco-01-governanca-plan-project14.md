@@ -66,12 +66,12 @@ O projeto precisa de uma fonte de verdade local para marcos e issues, com víncu
 
 ## Riscos
 
-| Risco                                           | Impacto                                              | Mitigação                                                    |
-| ----------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
-| `gh project` direto bloqueado por hook local    | Project 14 não sincroniza se comando bruto for usado | Usar `/Users/mal/.codex/bin/mbra-projects-gh` para ProjectV2 |
-| Issue/PR sem link para `.plan`                  | GitHub vira fonte incompleta                         | Validar corpo antes de criar ou editar issue/PR              |
-| Markdown fica desatualizado após criar issue/PR | Rastreabilidade parcial                              | Atualizar `.plan` com links reais após criação               |
-| UI issue futura sem screenshot                  | Evidência visual insuficiente                        | Exigir `docs/assets/issues/...` para UI/E2E                  |
+| Risco                                                     | Impacto                                              | Mitigação                                                                                                                                                                    |
+| --------------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ProjectV2 fora do wrapper global bloqueado por hook local | Project 14 não sincroniza se comando bruto for usado | Usar `/Users/mal/.codex/bin/mbra-projects-gh` e `/Users/mal/.codex/bin/mbra-projects-github-env -- <command>` para ProjectV2; não usar `gh project` direto nem admin/keyring |
+| Issue/PR sem link para `.plan`                            | GitHub vira fonte incompleta                         | Validar corpo antes de criar ou editar issue/PR                                                                                                                              |
+| Markdown fica desatualizado após criar issue/PR           | Rastreabilidade parcial                              | Atualizar `.plan` com links reais após criação                                                                                                                               |
+| UI issue futura sem screenshot                            | Evidência visual insuficiente                        | Exigir `docs/assets/issues/...` para UI/E2E                                                                                                                                  |
 
 ## Evidências esperadas
 
@@ -82,6 +82,7 @@ O projeto precisa de uma fonte de verdade local para marcos e issues, com víncu
 - Confirmação de item da issue no Project 14.
 - URL do PR.
 - Confirmação de item do PR no Project 14.
+- Evidência da rota global ProjectV2: self-test do hook, bloqueio de comando direto e acesso ao Project 14 pelo wrapper.
 
 ## Links
 

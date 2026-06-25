@@ -1,0 +1,51 @@
+name: Codex auto merge
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number to evaluate for safe merge
+        required: true
+        type: string
+      confirm:
+        description: Type confirm to run merge; any other value performs dry-run only
+        required: true
+        default: dry-run
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Dry-run merge policy
+        if: inputs.confirm != 'confirm'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/codex/auto-merge-pr.mjs --dry-run --pr "${{ inputs.pr }}"
+
+      - name: Confirmed merge policy
+        if: inputs.confirm == 'confirm'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/codex/auto-merge-pr.mjs --confirm --pr "${{ inputs.pr }}"
