@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GameMode {
+  local
+  room
+  computer
+}
+
+enum GameStatus {
+  waiting
+  active
+  completed
+  abandoned
+}
+
+enum GameResult {
+  white
+  black
+  draw
+  timeout
+  resigned
+  in_progress
+}
+
+enum RoomStatus {
+  open
+  playing
+  closed
+}
+
+model User {
+  id             String   @id @default(uuid())
+  email          String   @unique
+  name           String?
+  avatarUrl      String?
+  googleSubject  String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  whiteGames Game[] @relation("WhitePlayer")
+  blackGames Game[] @relation("BlackPlayer")
+  rooms      Room[] @relation("RoomHost")
+
+  @@index([email])
+}
+
+model Game {
+  id              String     @id @default(uuid())
+  mode            GameMode
+  status          GameStatus @default(active)
+  result          GameResult @default(in_progress)
+  fen             String
+  pgn             String     @default("")
+  clock           Json
+  whiteTimeLeft   Int
+  blackTimeLeft   Int
+  whitePlayerId   String?
+  blackPlayerId   String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  whitePlayer User? @relation("WhitePlayer", fields: [whitePlayerId], references: [id])
+  blackPlayer User? @relation("BlackPlayer", fields: [blackPlayerId], references: [id])
+  moves       Move[]
+  room        Room?
+  clocks      PlayerClock[]
+
+  @@index([mode, status])
+  @@index([createdAt])
+}
+
+model Move {
+  id            String   @id @default(uuid())
+  gameId        String
+  moveNumber    Int
+  san           String
+  fromSquare    String
+  toSquare      String
+  color         String
+  piece         String
+  captured      String?
+  promotion     String?
+  fen           String
+  whiteTimeLeft Int
+  blackTimeLeft Int
+  playedAt      DateTime @default(now())
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, moveNumber])
+  @@index([gameId])
+}
+
+model Room {
+  id        String     @id @default(uuid())
+  code      String     @unique
+  status    RoomStatus @default(open)
+  gameId    String     @unique
+  hostId    String?
+  guestId   String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  game Game  @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  host User? @relation("RoomHost", fields: [hostId], references: [id])
+
+  @@index([code])
+}
+
+model PlayerClock {
+  id          String   @id @default(uuid())
+  gameId      String
+  color       String
+  secondsLeft Int
+  updatedAt   DateTime @updatedAt
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, color])
+}

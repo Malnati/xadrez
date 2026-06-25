@@ -1,0 +1,20 @@
+{
+  "name": "xadrez-medieval",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.33.2",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @xadrez/api --filter @xadrez/web dev",
+    "build": "pnpm --filter @xadrez/shared build && pnpm --filter @xadrez/api build && pnpm --filter @xadrez/web build",
+    "test": "pnpm --filter @xadrez/shared test && pnpm --filter @xadrez/api test && pnpm --filter @xadrez/web test",
+    "lint": "pnpm --filter @xadrez/shared lint && pnpm --filter @xadrez/api lint && pnpm --filter @xadrez/web lint",
+    "typecheck": "pnpm --filter @xadrez/shared build && pnpm --filter @xadrez/api typecheck && pnpm --filter @xadrez/web typecheck",
+    "format": "prettier --check ."
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "prettier": "latest",
+    "typescript": "latest"
+  }
+}
