@@ -22,9 +22,9 @@ Este diretório é a fonte detalhada de planejamento do projeto Xadrez Medieval.
 
 ## Issues planejadas
 
-| Issue                           | Arquivo detalhado                                                                                | Marco                                                                                          | GitHub                                                 | Project 14                                                  | PR                             |
-| ------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ----------------------------------------------------------- | ------------------------------ |
-| Governança `.plan` + Project 14 | [`issues/issue-001-governanca-plan-project14.md`](issues/issue-001-governanca-plan-project14.md) | [`marcos/marco-01-governanca-plan-project14.md`](marcos/marco-01-governanca-plan-project14.md) | [Issue #1](https://github.com/Malnati/xadrez/issues/1) | [Project 14](https://github.com/users/Malnati/projects/14/) | A preencher após criação do PR |
+| Issue                           | Arquivo detalhado                                                                                | Marco                                                                                          | GitHub                                                 | Project 14                                                  | PR                                                |
+| ------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ----------------------------------------------------------- | ------------------------------------------------- |
+| Governança `.plan` + Project 14 | [`issues/issue-001-governanca-plan-project14.md`](issues/issue-001-governanca-plan-project14.md) | [`marcos/marco-01-governanca-plan-project14.md`](marcos/marco-01-governanca-plan-project14.md) | [Issue #1](https://github.com/Malnati/xadrez/issues/1) | [Project 14](https://github.com/users/Malnati/projects/14/) | [PR #2](https://github.com/Malnati/xadrez/pull/2) |
 
 ## Regras operacionais para Codex
 
