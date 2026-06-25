@@ -1,0 +1,13 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+
+# Generated/runtime artifacts
+apps/web/test-results/
+playwright-report/
+blob-report/
+
+# Bundled engine artifacts
+apps/web/public/engines/*.wasm
+apps/web/public/engines/*.js

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "repository": "Malnati/xadrez",
+  "defaultBranch": "main",
+  "branchPrefix": "codex/",
+  "planning": {
+    "directory": ".plan",
+    "issuesDirectory": ".plan/issues",
+    "milestonesDirectory": ".plan/marcos",
+    "indexFile": ".plan/README.md",
+    "assetsDirectory": "docs/assets/issues"
+  },
+  "github": {
+    "project": {
+      "owner": "Malnati",
+      "number": 14,
+      "url": "https://github.com/users/Malnati/projects/14/",
+      "projectCommandWrapper": "/Users/mal/.codex/bin/mbra-projects-gh",
+      "graphqlCommandWrapper": "/Users/mal/.codex/bin/mbra-projects-github-env",
+      "forbiddenRoutes": [
+        "plain gh project",
+        "plain gh api graphql for ProjectV2",
+        "admin/keyring gh for ProjectV2",
+        "--admin for ProjectV2"
+      ]
+    }
+  },
+  "validation": {
+    "governance": [
+      "git diff --check",
+      "node scripts/codex/validate-plan-links.mjs",
+      "node scripts/codex/validate-plan-links.mjs --self-test",
+      "python3 -B /Users/mal/.codex/hooks/github_projects_pat_gate.py --self-test"
+    ],
+    "code": ["pnpm test", "pnpm typecheck", "pnpm build"],
+    "ui": ["pnpm test:e2e"]
+  },
+  "mergePolicy": {
+    "mode": "squash",
+    "requirePlanLinks": true,
+    "requireGreenValidation": true,
+    "allowAutomaticConflictResolution": true,
+    "blockOnSemanticConflictWithoutGreenValidation": true
+  }
+}
