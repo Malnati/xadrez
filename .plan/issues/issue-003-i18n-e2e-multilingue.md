@@ -126,7 +126,7 @@ Resultado esperado:
 - Project 14: [Malnati / xadrez](https://github.com/users/Malnati/projects/14/)
 - Marco: [`../marcos/marco-03-i18n-e2e-multilingue.md`](../marcos/marco-03-i18n-e2e-multilingue.md)
 - GitHub issue: [Issue #4](https://github.com/Malnati/xadrez/issues/4).
-- Pull request: A criar.
+- Pull request: [PR #5](https://github.com/Malnati/xadrez/pull/5).
 
 ## Orientação visual
 
@@ -144,7 +144,7 @@ Usar como referência de orientação o visual medieval já versionado no MVP:
 
 ## Status operacional
 
-- Estado: Implementado localmente; PR a criar.
+- Estado: Implementado localmente; PR #5 aberta.
 - Sincronização Project 14: Issue adicionada via `/Users/mal/.codex/bin/mbra-projects-gh` em 2026-06-25.
 - Evidência visual: referência existente do MVP; evidência final será anexada à PR se a validação visual exigir.
 
