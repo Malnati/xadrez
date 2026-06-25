@@ -28,9 +28,9 @@ O projeto precisa de uma fonte de verdade local para marcos e issues, com víncu
 
 ## Issues vinculadas
 
-| Issue                           | Arquivo detalhado                                                                                      | GitHub                            | Project 14                                                  | PR                             |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------- | ----------------------------------------------------------- | ------------------------------ |
-| Governança `.plan` + Project 14 | [`../issues/issue-001-governanca-plan-project14.md`](../issues/issue-001-governanca-plan-project14.md) | A preencher após criação da issue | [Project 14](https://github.com/users/Malnati/projects/14/) | A preencher após criação do PR |
+| Issue                           | Arquivo detalhado                                                                                      | GitHub                                                 | Project 14                                                  | PR                             |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------ | ----------------------------------------------------------- | ------------------------------ |
+| Governança `.plan` + Project 14 | [`../issues/issue-001-governanca-plan-project14.md`](../issues/issue-001-governanca-plan-project14.md) | [Issue #1](https://github.com/Malnati/xadrez/issues/1) | [Project 14](https://github.com/users/Malnati/projects/14/) | A preencher após criação do PR |
 
 ## Ordem de execução
 
@@ -86,5 +86,5 @@ O projeto precisa de uma fonte de verdade local para marcos e issues, com víncu
 ## Links
 
 - Project 14: [Malnati / xadrez](https://github.com/users/Malnati/projects/14/)
-- Issue GitHub: A preencher após criação.
+- Issue GitHub: [Issue #1](https://github.com/Malnati/xadrez/issues/1).
 - PR GitHub: A preencher após criação.
