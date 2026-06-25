@@ -33,7 +33,7 @@ O PR #2 consolidou o MVP jogável, o E2E inicial de convidado contra computador 
 
 | Issue                  | Arquivo detalhado                                                                            | GitHub                                                 | Project 14                                                  | PR                                                |
 | ---------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ----------------------------------------------------------- | ------------------------------------------------- |
-| i18n e E2E multilíngue | [`../issues/issue-003-i18n-e2e-multilingue.md`](../issues/issue-003-i18n-e2e-multilingue.md) | [Issue #4](https://github.com/Malnati/xadrez/issues/4) | [Project 14](https://github.com/users/Malnati/projects/14/) | [PR #6](https://github.com/Malnati/xadrez/pull/6) |
+| i18n e E2E multilíngue | [`../issues/issue-003-i18n-e2e-multilingue.md`](../issues/issue-003-i18n-e2e-multilingue.md) | [Issue #4](https://github.com/Malnati/xadrez/issues/4) | [Project 14](https://github.com/users/Malnati/projects/14/) | [PR #7](https://github.com/Malnati/xadrez/pull/7) |
 
 ## Ordem de execução
 
@@ -96,7 +96,7 @@ O PR #2 consolidou o MVP jogável, o E2E inicial de convidado contra computador 
 
 - Project 14: [Malnati / xadrez](https://github.com/users/Malnati/projects/14/)
 - Issue GitHub: [Issue #4](https://github.com/Malnati/xadrez/issues/4).
-- PR GitHub: [PR #6](https://github.com/Malnati/xadrez/pull/6).
+- PR GitHub: [PR #7](https://github.com/Malnati/xadrez/pull/7).
 
 ## Evidência de execução
 
