@@ -123,4 +123,5 @@ Resultado esperado:
 - Pull request vinculado ao Project 14 e verificado por `gh pr view --json projectItems` em 2026-06-25.
 - `git diff --check` passou.
 - `pnpm exec prettier --check .plan/README.md .plan/issues/issue-001-governanca-plan-project14.md .plan/marcos/marco-01-governanca-plan-project14.md` passou.
+- `pnpm test` passou em 2026-06-25: 4 arquivos de teste, 6 testes aprovados.
 - `pnpm format` global falhou por baseline preexistente fora de `.plan` com 53 arquivos já não formatados; código alheio não foi reformatado nesta issue documental.
