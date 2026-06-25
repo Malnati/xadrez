@@ -10,7 +10,8 @@
     "test": "pnpm --filter @xadrez/shared test && pnpm --filter @xadrez/api test && pnpm --filter @xadrez/web test",
     "lint": "pnpm --filter @xadrez/shared lint && pnpm --filter @xadrez/api lint && pnpm --filter @xadrez/web lint",
     "typecheck": "pnpm --filter @xadrez/shared build && pnpm --filter @xadrez/api typecheck && pnpm --filter @xadrez/web typecheck",
-    "format": "prettier --check ."
+    "format": "prettier --check .",
+    "test:e2e": "pnpm --filter @xadrez/web test:e2e"
   },
   "devDependencies": {
     "@types/node": "latest",

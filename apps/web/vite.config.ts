@@ -1,16 +1,17 @@
-import path from 'node:path';
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import path from "node:path";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
   test: {
-    environment: 'jsdom',
-    setupFiles: './src/test/setup.ts',
+    environment: "jsdom",
+    include: ["src/**/*.test.{ts,tsx}", "src/**/*.spec.{ts,tsx}"],
+    setupFiles: "./src/test/setup.ts",
   },
 });
