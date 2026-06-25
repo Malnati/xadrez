@@ -22,7 +22,7 @@ Este diretório é a fonte detalhada de planejamento do projeto Xadrez Medieval.
 | ------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------- | -------------------------------------------------------------------------------------------------- |
 | Governança `.plan` + Project 14 | [`marcos/marco-01-governanca-plan-project14.md`](marcos/marco-01-governanca-plan-project14.md)   | Concluído via PR #2 | [`issues/issue-001-governanca-plan-project14.md`](issues/issue-001-governanca-plan-project14.md)   |
 | Automação Codex de governança   | [`marcos/marco-02-automacao-codex-governanca.md`](marcos/marco-02-automacao-codex-governanca.md) | Concluído via PR #2 | [`issues/issue-002-automacao-codex-governanca.md`](issues/issue-002-automacao-codex-governanca.md) |
-| i18n e E2E multilíngue          | [`marcos/marco-03-i18n-e2e-multilingue.md`](marcos/marco-03-i18n-e2e-multilingue.md)             | Em implementação    | [`issues/issue-003-i18n-e2e-multilingue.md`](issues/issue-003-i18n-e2e-multilingue.md)             |
+| i18n e E2E multilíngue          | [`marcos/marco-03-i18n-e2e-multilingue.md`](marcos/marco-03-i18n-e2e-multilingue.md)             | Concluído via PR #7 | [`issues/issue-003-i18n-e2e-multilingue.md`](issues/issue-003-i18n-e2e-multilingue.md)             |
 
 ## Issues planejadas
 

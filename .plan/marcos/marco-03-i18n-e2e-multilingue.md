@@ -103,3 +103,5 @@ O PR #2 consolidou o MVP jogável, o E2E inicial de convidado contra computador 
 - Issue #4 criada e adicionada ao Project 14 via wrapper ProjectV2 em 2026-06-25.
 - Evidência visual do fluxo renderizado: [`../../docs/assets/issues/004/i18n-multilingue-evidence.png`](../../docs/assets/issues/004/i18n-multilingue-evidence.png).
 - Validação local completa passou em 2026-06-25: `git diff --check`, validações Codex, dry-runs, `pnpm format`, `pnpm lint`, `pnpm test`, `pnpm typecheck`, `pnpm build` e `pnpm test:e2e`.
+
+- PR #7 mesclada em 2026-06-25T17:44:58Z; Issue #4 e PR #7 confirmadas em `Done` no Project 14.

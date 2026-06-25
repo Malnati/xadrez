@@ -144,8 +144,8 @@ Usar como referência de orientação o visual medieval já versionado no MVP:
 
 ## Status operacional
 
-- Estado: Implementado localmente; PR #7 aberta.
-- Sincronização Project 14: Issue adicionada via `/Users/mal/.codex/bin/mbra-projects-gh` em 2026-06-25.
+- Estado: Concluído; PR #7 mesclada em 2026-06-25.
+- Sincronização Project 14: Issue #4 e PR #7 em `Done` via wrappers ProjectV2 em 2026-06-25.
 - Evidência visual: referência existente do MVP; evidência final será anexada à PR se a validação visual exigir.
 
 ## Evidência de execução
@@ -165,3 +165,6 @@ Usar como referência de orientação o visual medieval já versionado no MVP:
 - `pnpm typecheck` passou em 2026-06-25.
 - `pnpm build` passou em 2026-06-25; Vite manteve apenas aviso de chunk grande já existente.
 - `pnpm test:e2e` passou em 2026-06-25: 7 testes Chromium cobrindo gate de idioma, `pt-BR`, `en-US`, `es-419`, persistência, troca sem reset e ausência de vazamento de português em EN/ES.
+
+- PR #7 mesclada em 2026-06-25T17:44:58Z por Ricardo Malnati.
+- Project 14 confirmado em 2026-06-25 com Issue #4 e PR #7 em `Done`.
